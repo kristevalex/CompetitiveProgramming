@@ -144,10 +144,10 @@ inline void SetupFactorial(int sz)
     ::invfactorial.resize(sz);
 
     ::factorial[0] = 1;
-    ::invfactorial[0] = 1;
     for (int i = 1; i < sz; ++i)
-    {
         ::factorial[i] = ::factorial[i-1] * mint(i);
-        ::invfactorial[i] = ::factorial[i].inv();
-    }
+
+    ::invfactorial[sz-1] = ::factorial[sz-1].inv();
+    for (int i = sz-2; i >= 0; --i)
+        ::invfactorial[i] = ::invfactorial[i+1]*mint(i+1);
 }
