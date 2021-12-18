@@ -1,7 +1,7 @@
 template<int m>
 struct modint
 {
-    long long x;
+    int x;
 
     modint() :
         x(0) {}
