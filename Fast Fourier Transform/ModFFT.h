@@ -129,7 +129,7 @@ const int MOD = 998244353;
 typedef modint<MOD> mint;
 const int root = 31;
 const int root_1 = 128805723;
-const int root_pw = 1<<23;
+const int root_pw = 1 << 23;
 const mint mroot = mint(root);
 const mint mroot_1 = mint(root_1);
 
