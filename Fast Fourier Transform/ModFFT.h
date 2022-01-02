@@ -135,69 +135,69 @@ const mint mroot_1 = mint(root_1);
 
 void fft (std::vector<mint>& a, bool invert)
 {
-	int n = a.size();
+    int n = a.size();
 
-	for (int i = 1, j = 0; i < n; ++i)
+    for (int i = 1, j = 0; i < n; ++i)
     {
-		int bit = n >> 1;
-		for (; j >= bit; bit >>= 1)
-			j -= bit;
-		j += bit;
-		if (i < j)
-			std::swap (a[i], a[j]);
-	}
+        int bit = n >> 1;
+        for (; j >= bit; bit >>= 1)
+            j -= bit;
+        j += bit;
+        if (i < j)
+            std::swap (a[i], a[j]);
+    }
 
-	for (int len = 2; len <= n; len <<= 1)
+    for (int len = 2; len <= n; len <<= 1)
     {
-		mint wlen = invert ? mroot_1 : mroot;
-		for (int i = len; i < root_pw; i <<= 1)
-			wlen *= wlen;
-		for (int i = 0; i < n; i += len)
-		{
-			mint w(1);
-			for (int j = 0; j < len/2; ++j)
-			{
-				mint u = a[i + j];
-				mint v = a[i + j + len/2] * w;
-				a[i + j] = u + v;
-				a[i + j + len/2] = u - v;
-				w *= wlen;
-			}
-		}
-	}
+        mint wlen = invert ? mroot_1 : mroot;
+        for (int i = len; i < root_pw; i <<= 1)
+            wlen *= wlen;
+        for (int i = 0; i < n; i += len)
+        {
+            mint w(1);
+            for (int j = 0; j < len/2; ++j)
+            {
+                mint u = a[i + j];
+                mint v = a[i + j + len/2] * w;
+                a[i + j] = u + v;
+                a[i + j + len/2] = u - v;
+                w *= wlen;
+            }
+        }
+    }
 
-	if (invert)
+    if (invert)
     {
-		mint nrev = mint(n).inv();
-		for (int i = 0; i < n; ++i)
-			a[i] *= nrev;
-	}
+        mint nrev = mint(n).inv();
+        for (int i = 0; i < n; ++i)
+            a[i] *= nrev;
+    }
 }
 
 void multiply (const std::vector<mint>& a, const std::vector<mint>& b, size_t sz, size_t ressz, std::vector<mint>& res)
 {
     size_t n = 1;
-	while (n < sz)  n <<= 1;
-	n <<= 1;
+    while (n < sz)  n <<= 1;
+    n <<= 1;
 
-	std::vector<mint> fa (a.begin(), a.end()),  fb (b.begin(), b.end());
-	fa.resize(n), fb.resize(n);
+    std::vector<mint> fa (a.begin(), a.end()),  fb (b.begin(), b.end());
+    fa.resize(n), fb.resize(n);
 
-	for (int i = sz; i < n; ++i)
-	{
-	    fa[i] = mint();
-	    fb[i] = mint();
-	}
+    for (int i = sz; i < n; ++i)
+    {
+        fa[i] = mint();
+        fb[i] = mint();
+    }
 
 
-	fft (fa, false),  fft (fb, false);
-	for (size_t i=0; i<n; ++i)
-		fa[i] *= fb[i];
-	fft (fa, true);
+    fft (fa, false),  fft (fb, false);
+    for (size_t i=0; i<n; ++i)
+        fa[i] *= fb[i];
+    fft (fa, true);
 
-	n = std::min(n, ressz);
-	if (res.size() < n)
+    n = std::min(n, ressz);
+    if (res.size() < n)
         res.resize(n);
-	for (size_t i = 0; i < n; ++i)
-		res[i] = fa[i];
+    for (size_t i = 0; i < n; ++i)
+        res[i] = fa[i];
 }
