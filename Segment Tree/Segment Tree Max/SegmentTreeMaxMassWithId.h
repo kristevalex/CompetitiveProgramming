@@ -14,6 +14,7 @@ struct SegmentTreeMax
     {
         sz = _sz;
         tree.assign(4 * sz, {0, 0});
+        adds.assign(4 * sz, 0);
     }
 
     inline std::pair<int, int> getValue(int v)
