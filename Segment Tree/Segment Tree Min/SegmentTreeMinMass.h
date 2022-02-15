@@ -8,9 +8,9 @@ struct SegmentTreeMin
     std::vector<int> tempr;
 
 
-    SegmentTreeMax() {}
+    SegmentTreeMin() {}
 
-    SegmentTreeMax(int _sz)
+    SegmentTreeMin(int _sz)
     {
         sz = _sz;
         tree.assign(4 * sz, 0);
