@@ -55,7 +55,7 @@ struct SegmentTreeMax
         return query(1, 0, sz - 1, l, r);
     }
 
-    void update(int v, int tl, int tr, int id, int val)
+    void update(int v, int tl, int tr, int id, long long val)
     {
         if (tr < id) return;
         if (id < tl) return;
@@ -71,7 +71,7 @@ struct SegmentTreeMax
         tree[v] = max(tree[2 * v], tree[2 * v + 1]);
     }
 
-    inline void Update(int id, int val)
+    inline void Update(int id, long long val)
     {
         update(1, 0, sz - 1, id, val);
     }
