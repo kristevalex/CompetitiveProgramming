@@ -125,3 +125,5 @@ struct modint
 
 const int MOD = 1000000007;
 typedef modint<MOD> mint;
+
+template<int m> ostream& operator<<(ostream& out, const modint<m>& x) {return out << x.x;}
